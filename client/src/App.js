@@ -1,8 +1,9 @@
 import React, { useState } from "react";
+import "./App.css";
 import Chat from "./components/chat/Chat";
 import Home from "./components/home/Home";
 import { Routes, Route } from "react-router-dom";
-import { UserContent } from "./UserContent";
+import { SocketContext } from "./UserContent";
 import Navbar from "./components/Navbar/Navbar";
 
 const App = () => {
@@ -10,13 +11,13 @@ const App = () => {
   return (
     <>
       <div className="App">
-        <UserContent.Provider value={{ user, setUser }}>
+        <SocketContext.Provider value={{ user, setUser }}>
           <Navbar />
           <Routes>
             <Route exact path="/" element={<Home />}></Route>
             <Route exact path="/chat" element={<Chat />}></Route>
           </Routes>
-        </UserContent.Provider>
+        </SocketContext.Provider>
       </div>
     </>
   );
