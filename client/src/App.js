@@ -15,7 +15,11 @@ const App = () => {
           <Navbar />
           <Routes>
             <Route exact path="/" element={<Home />}></Route>
-            <Route exact path="/chat" element={<Chat />}></Route>
+            <Route
+              exact
+              path="/chat/:room_id/:room_name"
+              element={<Chat />}
+            ></Route>
           </Routes>
         </SocketContext.Provider>
       </div>

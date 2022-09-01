@@ -1,19 +1,23 @@
-import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-import io from "socket.io-client";
-let socket;
+import React, { useState } from "react";
+import { io } from "socket.io-client";
+import RoomList from "./RoomList";
 
 const Home = () => {
-  const ENDPT = "localhost:4000";
-  useEffect(() => {
-    socket = io(ENDPT);
-    return () => {
-      socket.emit("disconnected");
-      socket.off();
-    };
-  }, [ENDPT]);
-
   const [room, setRoom] = useState("");
+  const socket = io("http://localhost:4000", {
+    transports: ["websocket", "polling"],
+  });
+
+  const roomData = [
+    {
+      name: "jai",
+      _id: "2701",
+    },
+    {
+      name: "mahak",
+      _id: "2701",
+    },
+  ];
 
   const handleSubmitForm = (e) => {
     e.preventDefault();
@@ -45,16 +49,12 @@ const Home = () => {
                 <button type="submit">go to chat</button>
               </form>
             </div>
-            {/* <div className="card-action" style={{ backgroundColor: "none" }}>
-              <a href="#">This is a link</a>
-              <a href="#">This is a link</a>
-            </div> */}
           </div>
         </div>
+        <div className="col s6 m5 offset-1">
+          <RoomList roomData={roomData} />
+        </div>
       </div>
-      {/* <Link to={"/chat"}> */}
-
-      {/* </Link> */}
     </>
   );
 };
